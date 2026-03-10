@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!-- 使用了Xacro 宏定义 -->
+<robot xmlns:xacro = "http://www.ros.org/wiki/xacro">
+    <xacro:include filename="$(find fishbot_description)/urdf/fishbot/common_inertia.xacro" />
+
+    <!-- 声明传感器模块 声明名字为imu_xacro，参数为xyz的宏 -->
+    <xacro:macro name = "imu_xacro" params = "xyz">
+        <link name="imu_link">
+        <!-- 部件外观描述 -->
+            <visual>
+                <!-- 沿自己几何中心的偏移与旋转量 -->
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <!-- 几何形状 -->
+                <geometry>
+                <box size="0.02 0.02 0.02" />
+                </geometry>
+                <!-- 材质子标签 -->
+                <material name="black">
+                    <color rgba="0 0 0 0.8" />
+                </material>
+            </visual>
+
+            <collision>
+                <!-- 沿自己几何中心的偏移与旋转量 -->
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <!-- 几何形状 -->
+                <geometry>
+                <box size="0.02 0.02 0.02" />
+                </geometry>
+                <!-- 材质子标签 -->
+                <material name="black">
+                    <color rgba="0 0 0 0.8" />
+                </material>
+            </collision>
+
+            <xacro:box_inertia m = "0.05" w = "0.02" h = "0.02" d = "0.02" />
+        </link>
+
+        <joint name = "imu_joint" type = "fixed">
+        <parent link = "base_link" />
+        <child link = "imu_link" />
+        <origin xyz = "${xyz}" />
+        </joint>  
+
+        <gazebo reference = "imu_link">
+            <material>Gazebo/Black</material>
+        </gazebo>
+
+    </xacro:macro>
+    
+</robot>
