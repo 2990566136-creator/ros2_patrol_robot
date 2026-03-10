@@ -13,9 +13,12 @@ def main():
     initial_pose.header.stamp = navigator.get_clock().now().to_msg()    # 获取当前时间戳给header.stamp
     initial_pose.pose.position.x = 0.0
     initial_pose.pose.position.y = 0.0
-    initial_pose.pose.orientation.z = 1.0
+    initial_pose.pose.orientation.w = 1.0
     
     navigator.setInitialPose(initial_pose)      # 将配置好的位姿发送给导航系统
     navigator.waitUntilNav2Active()         # 等待导航变为可用状态
-    rclpy.spin(navigator)
+    # rclpy.spin(navigator)
     rclpy.shutdown()
+
+    if __name__ == '__main__':
+        main()
