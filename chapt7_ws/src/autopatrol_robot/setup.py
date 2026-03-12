@@ -1,6 +1,7 @@
 from setuptools import find_packages, setup
+from glob import glob
 
-package_name = 'fishbot_application'
+package_name = 'autopatrol_robot'
 
 setup(
     name=package_name,
@@ -10,6 +11,8 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        ('share/' + package_name + '/config', ['config/patrol_config.yaml']),
+        ('share/' + package_name + '/launch', glob('launch/*.launch.py')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -24,10 +27,8 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            "init_robot_pose = fishbot_application.init_robot_pose:main",
-            "get_robot_pose = fishbot_application.get_robot_pose:main",
-            "nav_to_pose = fishbot_application.nav_to_pose:main",
-            "waypoint_follower = fishbot_application.waypoint_follower:main",
+            'patrol_node = autopatrol_robot.patrol_node:main',
+            'speaker = autopatrol_robot.speaker:main',
         ],
     },
 )
